@@ -1,5 +1,5 @@
 {% set name = "radical.gtod" %}
-{% set version = "1.20.0" %}
+{% set version = "1.20.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 8d0846de7a5d094146c01fbb7c137f343e4da06af51efafeba79dd3fdfe421dc
+  sha256: fa91a372b9b7be72fa83a9de414eeb39dd9aa431fdb75c58f3fe409ae908e806
 
 build:
   number: 0
