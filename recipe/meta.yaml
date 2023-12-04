@@ -1,6 +1,6 @@
 {% set name = "radical.gtod" %}
-{% set version = "1.41.0" %}
-{% set sha256 = "666a45089039bc58d8cdd63259cb14e5e05ba5077b871744ebd5a445bd33c795" %}
+{% set version = "1.42.0" %}
+{% set sha256 = "07113a6e7d4ed4e0f914da4378f4192af500fc467b1a83a517aaeae27644b921" %}
 
 package:
   name: {{ name|lower }}
@@ -11,7 +11,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 2
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv
   skip: true  # [py2k or win]
 
