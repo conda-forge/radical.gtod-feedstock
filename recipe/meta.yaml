@@ -1,6 +1,6 @@
 {% set name = "radical.gtod" %}
-{% set version = "1.42.0" %}
-{% set sha256 = "07113a6e7d4ed4e0f914da4378f4192af500fc467b1a83a517aaeae27644b921" %}
+{% set version = "1.44.0" %}
+{% set sha256 = "77e9c0bfab98a0d17b674968c408ceec52521e3b9983e6229553f83ae080c260" %}
 
 package:
   name: {{ name|lower }}
