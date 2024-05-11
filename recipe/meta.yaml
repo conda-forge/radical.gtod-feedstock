@@ -1,29 +1,29 @@
 {% set name = "radical.gtod" %}
-{% set version = "1.47.0" %}
-{% set sha256 = "52e75bf14faf352165ffa0d9e32ca472bd63f479020cd78f832baa34f8acfe6d" %}
+{% set version = "1.60.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/radical_gtod-{{ version }}.tar.gz
+  sha256: 02fbb23ad2b450006b88fec4d3fdfbdb6093593e777819ef34ca4bfaa7e9cfbd
 
 build:
+  skip: true  # [py<37]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
-  skip: true  # [py2k or win]
 
 requirements:
   build:
     - {{ compiler('c') }}
   host:
     - python
+    - setuptools
     - pip
   run:
     - python
-    - radical.utils
+    - radical.utils >=1.60
 
 test:
   imports:
@@ -44,3 +44,4 @@ extra:
   recipe-maintainers:
     - andre-merzky
     - mtitov
+    - xylar
