@@ -18,6 +18,8 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
+    - cross-python_{{ target_platform }}    # [build_platform != target_platform]
+    - python                                # [build_platform != target_platform]
   host:
     - python
     - setuptools
@@ -37,7 +39,7 @@ about:
   license_file: LICENSE.md
   summary: Current time in seconds since epoch
   description: |
-    This Python package provides a single method, gtod, which returns the 
+    This Python package provides a single method, gtod, which returns the
     current time in seconds since epoch (01.01.1970) with sub-second resolution.
   dev_url: https://github.com/radical-cybertools/radical.gtod
 
