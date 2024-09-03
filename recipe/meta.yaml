@@ -1,5 +1,5 @@
 {% set name = "radical.gtod" %}
-{% set version = "1.61.0" %}
+{% set version = "1.80.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/radical_gtod-{{ version }}.tar.gz
-  sha256: e08037c142130130937d92b140a5a4f192146b97992488ab50e325090f8dd719
+  sha256: 92a2b3bdf7761ee7bef3b5a33d8c7cc46727bac62b414ab8db27c5f6da278281
 
 build:
   skip: true  # [py<37 or win]
@@ -26,7 +26,7 @@ requirements:
     - pip
   run:
     - python
-    - radical.utils >=1.60
+    - radical.utils >=1.80.0,<1.81.dev0
 
 test:
   imports:
