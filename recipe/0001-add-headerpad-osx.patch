@@ -1,0 +1,49 @@
+diff -ruN radical_gtod-1.102.0/setup.py radical_gtod-1.102.0-patch/setup.py
+--- radical_gtod-1.102.0/setup.py	2025-05-28 12:04:21.000000000 +0200
++++ radical_gtod-1.102.0-patch/setup.py	2025-10-11 18:01:26.905273873 +0200
+@@ -9,6 +9,7 @@
+ ''' Setup script, only usable via pip. '''
+ 
+ import os
++import sys
+ import time
+ import traceback
+ 
+@@ -146,8 +147,16 @@
+ src = '%s/gtod.c'       % mod_root
+ tgt = '%s/radical-gtod' % mod_root
+ 
+-# try a static build
+-if not os.path.exists(tgt):
++# On macOS, remove any bundled prebuilt binary to force a relink with
++# appropriate header padding for install_name_tool compatibility.
++if sys.platform == 'darwin' and os.path.exists(tgt):
++    try:
++        os.remove(tgt)
++    except Exception:
++        pass
++
++# try a static build (not on macOS where -static is unsupported)
++if not os.path.exists(tgt) and sys.platform != 'darwin':
+     try:
+         compiler = sh_callout('which gcc')[0].decode().strip()
+ 
+@@ -167,8 +176,16 @@
+         from distutils.ccompiler import new_compiler
+ 
+         compiler = new_compiler(verbose=1)
+-        objs     = compiler.compile(sources=[src])
+-        exe      = compiler.link_executable(objs, tgt)
++
++        # compile objects as usual
++        objs = compiler.compile(sources=[src])
++
++        # On macOS, ensure enough space for later install_name_tool edits
++        extra_postargs = []
++        if sys.platform == 'darwin':
++            extra_postargs = ['-Wl,-headerpad_max_install_names']
++
++        exe = compiler.link_executable(objs, tgt, extra_postargs=extra_postargs)
+ 
+         # test the resulting binary - and if it does not seem to work, replace it
+         # by a shell script which provides a poor-man's version of the C code.
